@@ -1,0 +1,20 @@
+:root {
+    --primary-green: #27FB6B;
+    --primary-green-variant: #09A129;
+    --primary-blue: #3C91E6;
+    --primary-blue-variant: #29335C;
+    --secondary-yellow: #F3A712;
+    --secondary-yellow-variant: #D0502A;
+}
+.bg-primary {
+    background: var(--primary-blue);
+}
+.bg-primary-variant {
+    background: var(--primary-blue-variant);
+}
+.bg-secondary {
+    background: var(--secondary-yellow);
+}
+.bg-secondary-variant {
+    background: var(--secondary-yellow-variant);
+}
