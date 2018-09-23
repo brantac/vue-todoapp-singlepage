@@ -1,0 +1,121 @@
+:root {
+    --primary-green: #27FB6B;
+    --primary-green-variant: #09A129;
+    --primary-blue: #3C91E6;
+    --primary-blue-variant: #29335C;
+    --secondary-yellow: #F3A712;
+    --secondary-yellow-variant: #D0502A;
+}
+.bg-primary {
+    background: var(--primary-blue);
+}
+.bg-primary-variant {
+    background: var(--primary-blue-variant);
+}
+.bg-secondary {
+    background: var(--secondary-yellow);
+}
+.bg-secondary-variant {
+    background: var(--secondary-yellow-variant);
+}
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    font-size: 16px;
+}
+body, html {
+    height: 100%;
+}
+#app {
+    min-height: 100%;
+    background: var(--primary-blue);
+    user-select: none;
+}
+.text-center {
+    text-align: center;
+}
+/* 
+    Header
+*/
+.header-social {
+    min-height: 16px;
+}
+.logo {
+    font-size: 48px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+/**
+    Form
+*/
+form {
+    padding: 16px 8px;
+    font-weight: 600;
+}
+input {
+    font-size: 18px;
+    width: 100%;
+    padding: 8px 16px;
+    margin-bottom: 16px;
+    outline: 0;
+}
+/**
+    Todos
+*/
+.todo-list {
+    font-size: 18px;
+    text-align: initial;
+}
+.todo-list h2 {
+    text-align: center;
+}
+.todo-list ol {
+    padding-right: 8px;
+    padding-left: 8px;
+    margin: 0;
+}
+.todo-list li {
+    color: white;
+    letter-spacing: 1.5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    font-weight: 600;
+    margin-top: 8px;
+    padding: 15px 8px;
+    list-style: none;
+}
+.material-icons {
+    color: white;
+}
+.button {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    color: rgba(0,0,0,1);
+    font-size: 32px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+.fadeForm-enter-active, .fadeForm-leave-active {
+    transition: visibility .2s ease-in-out, opacity .2s linear;
+}
+.fadeForm-enter, .fadeForm-leave-to {
+    visibility: hidden;
+    opacity: 0;
+}
+@media screen and (min-width: 425px) {
+    form, .todo-list ol {
+        padding-right: 0;
+        padding-left: 0;
+    }
+    form, .todo-list {
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
