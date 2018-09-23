@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vue.js HelloWorld</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #27FB6B;
+            --primary-green-variant: #09A129;
+            --primary-blue: #3C91E6;
+            --primary-blue-variant: #29335C;
+            --secondary-yellow: #F3A712;
+            --secondary-yellow-variant: #D0502A;
+        }
+        .bg-primary {
+            background: var(--primary-blue);
+        }
+        .bg-primary-variant {
+            background: var(--primary-blue-variant);
+        }
+        .bg-secondary {
+            background: var(--secondary-yellow);
+        }
+        .bg-secondary-variant {
+            background: var(--secondary-yellow-variant);
+        }
+        *, *::after, *::before {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-size: 16px;
+        }
+        body, html {
+            height: 100%;
+        }
+        #app {
+            min-height: 100%;
+            background: var(--primary-blue);
+            user-select: none;
+        }
+        .text-center {
+            text-align: center;
+        }
+        /* 
+            Header
+        */
+        .header-social {
+            min-height: 16px;
+        }
+        .logo {
+            font-size: 48px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+        /**
+            Form
+        */
+        form {
+            padding: 16px 8px;
+            font-weight: 600;
+        }
+        input {
+            font-size: 18px;
+            width: 100%;
+            padding: 8px 16px;
+            margin-bottom: 16px;
+            outline: 0;
+        }
+        /**
+            Todos
+        */
+        .todo-list {
+            font-size: 18px;
+            text-align: initial;
+        }
+        .todo-list h2 {
+            text-align: center;
+        }
+        .todo-list ol {
+            padding-right: 8px;
+            padding-left: 8px;
+            margin: 0;
+        }
+        .todo-list li {
+            color: white;
+            letter-spacing: 1.5px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            font-weight: 600;
+            margin-top: 8px;
+            padding: 15px 8px;
+            list-style: none;
+        }
+        .material-icons {
+            color: white;
+        }
+        .button {
+            position: fixed;
+            right: 15px;
+            bottom: 15px;
+            color: rgba(0,0,0,1);
+            font-size: 32px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        .fadeForm-enter-active, .fadeForm-leave-active {
+            transition: visibility .2s ease-in-out, opacity .2s linear;
+        }
+        .fadeForm-enter, .fadeForm-leave-to {
+            visibility: hidden;
+            opacity: 0;
+        }
+        @media screen and (min-width: 425px) {
+            form, .todo-list ol {
+                padding-right: 0;
+                padding-left: 0;
+            }
+            form, .todo-list {
+                width: 60%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="header-social bg-primary-variant"></div>
+            <div class="logo text-center">
+                <span>Todo App</span>
+            </div>
+        </header>
+
+        <transition name="fadeForm">
+            <form action="" class="todo-form"
+            v-show="show">
+                <input type="text"
+                id="todoInput"
+                name="todoInput"
+                v-model="todoInput"
+                placeholder="Ex: Estudar Vue.js" />
+    
+                <label for="priority">Priority</label>
+                <select name="priority"
+                id="priority">
+                    <option value="">Low</option>
+                    <option value="">Medium</option>
+                    <option value="">High</option>
+                </select>
+                <button
+                    type="button"
+                    @click="insertTodo">Insert
+                </button>
+            </form>
+        </transition>
+
+        <div class="todo-list">
+            <h2>{{ todos }} todos added</h2>
+            <ol>
+                <todo-item
+                    class=""
+                    v-for="(item,index) in todosList"
+                    v-bind:data-item="item.id.toString()"
+                    v-bind:todo="item"
+                    v-bind:key="item.id"
+                    v-on:remove="todosList.splice(index,1); todos--; storeRemovedKey(item.id)">
+                </todo-item>
+            </ol>
+        </div>
+
+        <i v-on:click="show = !show"
+        class="material-icons button bg-secondary">add</i>
+        <!-- <a href="#"
+            class="button">
+        </a> -->
+    </div>
+    <script>
+    /**
+     * Todo component
+     */
+    Vue.component('todo-item',{
+        props: ['todo', 'remove'],
+        methods: {
+        },
+        template: '\
+        <li class="bg-primary-variant">\
+        <p>{{ todo.text }}</p>\
+        <a v-on:click.prevent="$emit(\'remove\')" href="#"><i class="material-icons">delete</i></a>\
+        </li>'
+    });
+    /**
+     * Root Vue
+     */
+    var app = new Vue({
+        el: "#app",
+        data: {
+            todoInput: '',
+            todosList: [
+                {id: 1, text: "Estudar Vue.js", priority: "High"},
+                {id: 2, text: "Estudar TypeScript", priority: "High"},
+                {id: 3, text: "Estudar Kubernets", priority: "Medium"},
+            ],
+            todos: 3,
+            key: {
+                next: 4,
+                removed: []
+            },
+            show: false
+        },
+        methods: {
+            insertTodo: function () {
+                this.todosList.push({
+                    id: this.getAvailableKey(),
+                    text: this.todoInput
+                });
+                this.todoInput = '';
+                this.todos++;
+            },
+            // return the next key that will be used.
+            // if a removed key is available, return it instead
+            // of a new one.
+            getAvailableKey: function () {
+                return this.key.removed.length ? this.key.removed.pop() : this.key.next++;
+            },
+            // store a removed key
+            storeRemovedKey: function (removedKey = null) {
+                this.key.removed.push(removedKey);
+            }
+        }
+    });
+    </script>
+    <!-- <script src="index.js"></script> -->
+</body>
+</html>
