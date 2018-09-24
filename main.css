@@ -20,7 +20,15 @@ body, html {
 }
 /* Header */
 .header-social {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
     min-height: 16px;
+}
+.header-social i {
+    color: white;
+    font-size: 21px;
+    /* margin-left: 32px; */
 }
 .logo {
     font-size: 48px;

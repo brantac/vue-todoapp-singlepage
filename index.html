@@ -9,11 +9,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
     rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body>
     <div id="app">
         <header>
-            <div class="header-social bg-primary-variant"></div>
+            <div class="header-social bg-primary-variant">
+                <a target="_blank" href="https://github.com/brantac"><i class="fab fa-github"></i></a>
+                <a target="_blank" href="https://facebook.com/arthurclbr"><i class="fab fa-facebook"></i></a>
+                <a target="_blank" href="https://linkedin.com/in/arthurclbr"><i class="fab fa-linkedin"></i></a>
+            </div>
             <div class="logo text-center">
                 <span>Todo App</span>
             </div>
@@ -32,9 +37,9 @@
                 <select name="priority"
                 id="priority"
                 v-model='priorityInput'>
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
+                    <option value="low">low</option>
+                    <option value="medium">medium</option>
+                    <option value="high">high</option>
                 </select>
                 <button
                     type="button"
@@ -45,10 +50,16 @@
 
         <div class="todo-list">
             <h2>{{ todos }} todos added</h2>
+            <a v-on:click.prevent="todosList.sort(sortByPriority)" href="#">
+                <i class="material-icons">
+                    priority_high
+                </i>
+            </a>
             <ol>
                 <todo-item
-                    class=""
+                    class="bg-primary-variant"
                     v-for="(item,index) in todosList"
+                    v-bind:class="convertPriorityToString(item.priority)"
                     v-bind:data-item="item.id.toString()"
                     v-bind:todo="item"
                     v-bind:key="item.id"
@@ -58,7 +69,8 @@
         </div>
 
         <i v-on:click="show = !show"
-        class="material-icons button bg-secondary">add</i>
+        class="material-icons button bg-secondary"
+        style="font-size:48px;">add</i>
         <!-- <a href="#"
             class="button">
         </a> -->
@@ -72,7 +84,7 @@
         methods: {
         },
         template: '\
-        <li class="bg-primary-variant">\
+        <li>\
         <p>{{ todo.text }}</p>\
         <a v-on:click.prevent="$emit(\'remove\')" href="#"><i class="material-icons">delete</i></a>\
         </li>'
@@ -86,9 +98,9 @@
             todoInput: '',
             priorityInput: 'medium',
             todosList: [
-                {id: 1, text: "Estudar Vue.js", priority: "High"},
-                {id: 2, text: "Estudar TypeScript", priority: "High"},
-                {id: 3, text: "Estudar Kubernets", priority: "Medium"},
+                {id: 1, text: "Estudar Vue.js", priority: 1},
+                {id: 2, text: "Estudar TypeScript", priority: 1},
+                {id: 3, text: "Estudar Kubernets", priority: 0},
             ],
             todos: 3,
             key: {
@@ -102,7 +114,7 @@
                 this.todosList.push({
                     id: this.getAvailableKey(),
                     text: this.todoInput,
-                    priority: this.priorityInput
+                    priority: this.convertPriorityToNumber(this.priorityInput)
                 });
                 this.todoInput = '';
                 this.todos++;
@@ -116,6 +128,27 @@
             // store a removed key
             storeRemovedKey: function (removedKey = null) {
                 this.key.removed.push(removedKey);
+            },
+            // get the priority number and returns
+            // a string
+            convertPriorityToString: function (p) {
+                switch (p) {
+                    case 1:
+                        return 'high';
+                        break;
+                    case 0:
+                        return 'medium';
+                        break;
+                    case -1:
+                        return 'low';
+                        break;
+                }
+            },
+            convertPriorityToNumber: function (p) {
+                return p == 'high' ? 1 : p == 'medium' ? 0 : -1;
+            },
+            sortByPriority: function (a,b) {
+                return a.priority < b.priority;
             }
         }
     });
