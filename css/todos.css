@@ -19,6 +19,7 @@ input {
     padding-right: 8px;
     padding-left: 8px;
     margin: 0;
+    overflow: hidden;
 }
 .todo-list li {
     color: white;
@@ -41,11 +42,17 @@ input {
 .button {
     position: fixed;
     right: 15px;
-    bottom: 15px;
+    bottom: 35px;
     color: rgba(0,0,0,1);
     font-size: 32px;
     cursor: pointer;
     border-radius: 50%;
+}
+.btn-transform {
+    transition: all .2s linear;
+}
+.btn-transform.active {
+    transform: rotate(-45deg);
 }
 /* .high {
     color: #FF5964;

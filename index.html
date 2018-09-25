@@ -55,7 +55,10 @@
                     priority_high
                 </i>
             </a>
-            <ol>
+            <transition-group
+                name="slideFadeList"
+                appear
+                tag="ol">
                 <todo-item
                     class="bg-primary-variant"
                     v-for="(item,index) in todosList"
@@ -65,12 +68,15 @@
                     v-bind:key="item.id"
                     v-on:remove="todosList.splice(index,1); todos--; storeRemovedKey(item.id)">
                 </todo-item>
-            </ol>
+            </transition-group>
         </div>
 
-        <i v-on:click="show = !show"
-        class="material-icons button bg-secondary"
-        style="font-size:48px;">add</i>
+        <i v-on:click="show = !show; isActive = !isActive"
+            v-bind:class="{active: isActive}"
+            class="material-icons button bg-secondary btn-transform"
+            style="font-size:48px;">
+            add
+        </i>
         <!-- <a href="#"
             class="button">
         </a> -->
@@ -107,7 +113,12 @@
                 next: 4,
                 removed: []
             },
-            show: false
+            show: false,
+            // this property is used to toggle the
+            // 'active' class. With this, I can
+            // animate any element
+            // depending on its presence
+            isActive: false
         },
         methods: {
             insertTodo: function () {
