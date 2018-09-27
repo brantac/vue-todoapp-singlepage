@@ -56,13 +56,14 @@
                 </i>
             </a>
             <transition-group
-                name="slideFadeList"
-                appear
-                tag="ol">
+                name="fadeTodo"
+                tag="ol"
+                >
                 <todo-item
-                    class="bg-primary-variant"
+                    class="bg-primary-variant slideLi"
                     v-for="(item,index) in todosList"
-                    v-bind:class="convertPriorityToString(item.priority)"
+                    v-bind:class="[convertPriorityToString(item.priority),
+                    isRemovingTodo() ? 'removingTodo' : '']"
                     v-bind:data-item="item.id.toString()"
                     v-bind:todo="item"
                     v-bind:key="item.id"
@@ -72,7 +73,7 @@
         </div>
 
         <i v-on:click="show = !show; isActive = !isActive"
-            v-bind:class="{active: isActive}"
+            v-bind:class="{formOpened: isActive}"
             class="material-icons button bg-secondary btn-transform"
             style="font-size:48px;">
             add
@@ -160,6 +161,9 @@
             },
             sortByPriority: function (a,b) {
                 return a.priority < b.priority;
+            },
+            isRemovingTodo: function () {
+                return true;
             }
         }
     });

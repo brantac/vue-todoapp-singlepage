@@ -51,7 +51,7 @@ input {
 .btn-transform {
     transition: all .2s linear;
 }
-.btn-transform.active {
+.btn-transform.formOpened {
     transform: rotate(-45deg);
 }
 /* .high {
@@ -63,3 +63,36 @@ input {
 .low {
     color: #6BF178;
 } */
+/* Animations */
+.slideLi {
+    /* transition: all .4s cubic-bezier(0.445, 0.05, 0.55, 0.95); */
+    animation: slideinli .3s;
+}
+@keyframes slideinli {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* VUE TRANSITION CLASSES */
+/* Form fade */
+.fadeForm-enter-active, .fadeForm-leave-active {
+    transition: visibility .2s ease-in-out, opacity .2s linear;
+}
+.fadeForm-enter, .fadeForm-leave-to {
+    visibility: hidden;
+    opacity: 0;
+}
+/* Fade todo list */
+.fadeTodo-leave-active {
+    transition: all .4s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+.fadeTodo-leave-to {
+    transform: translateX(100%);
+    opacity: 0;
+}

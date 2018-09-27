@@ -37,35 +37,6 @@ body, html {
     padding-top: 5px;
     padding-bottom: 5px;
 }
-/* VUE TRANSITION CLASSES */
-/* Form fade */
-.fadeForm-enter-active, .fadeForm-leave-active {
-    transition: visibility .2s ease-in-out, opacity .2s linear;
-}
-.fadeForm-enter, .fadeForm-leave-to {
-    visibility: hidden;
-    opacity: 0;
-}
-/* Todo list slide */
-.slideFadeList-enter-active {
-    transition: all .3s ease .1s;
-}
-.slideFadeList-enter {
-    transform: translateX(-100%);
-    opacity: 0;
-}
-.slideFadeList-enter-to {
-    transform: translateX(0%);
-    opacity: 1;
-}
-.slideFadeList-leave-active {
-    /* transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0); */
-    transition: all .4s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-}
-.slideFadeList-leave-to {
-    transform: translateX(100%);
-    opacity: 0;
-}
 @media screen and (min-width: 425px) {
     form, .todo-list ol {
         padding-right: 0;
