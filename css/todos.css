@@ -49,7 +49,7 @@ input {
     border-radius: 50%;
 }
 .btn-transform {
-    transition: all .2s linear;
+    transition: all .1s linear;
 }
 .btn-transform.formOpened {
     transform: rotate(-45deg);
@@ -82,10 +82,10 @@ input {
 /* VUE TRANSITION CLASSES */
 /* Form fade */
 .fadeForm-enter-active, .fadeForm-leave-active {
-    transition: visibility .2s ease-in-out, opacity .2s linear;
+    transition: all .1s ease-in-out, opacity .1s linear;
 }
 .fadeForm-enter, .fadeForm-leave-to {
-    visibility: hidden;
+    transform: translateY(-100%);
     opacity: 0;
 }
 /* Fade todo list */
